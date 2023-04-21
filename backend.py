@@ -9,9 +9,9 @@ import os
 app = Flask(__name__, static_url_path='/static')
 CORS(app)
 
-# Define upload folder path
-UPLOAD_FOLDER = 'uploads'
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+# # Define upload folder path
+# UPLOAD_FOLDER = 'uploads'
+# app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 @app.route('/', methods=['POST'])
 def message():
@@ -51,23 +51,27 @@ def message():
         font = cv2.FONT_HERSHEY_SIMPLEX
         res = cv2.putText(img, text=text, org=(approx[0][0][0], approx[1][0][1]+60), fontFace=font, fontScale=1, color=(0,255,0), thickness=2, lineType=cv2.LINE_AA)
         res = cv2.rectangle(img, tuple(approx[0][0]), tuple(approx[2][0]), (0,255,0),3)
-        
-        # Save the processed image to disk
-        processed_image_path = os.path.join(app.config['UPLOAD_FOLDER'], 'processed_image.jpg')
-        cv2.imwrite(processed_image_path, res)
-
-        # Create a Flask response with the encoded image file
-        with open(processed_image_path, 'rb') as f:
-            content = f.read()
-        response = make_response(content)
-
-        # Set the response headers to indicate that it is a JPG image
-        response.headers.set('Content-Type', 'image/jpg')
-        response.headers.set('Content-Disposition', 'attachment', filename='processed_image.jpg')
+        response = make_response(cv2.imencode('.png', res)[1].tobytes())
+        response.headers.set('Content-Type', 'image/png')
+        response.headers.set('Content-Disposition', 'attachment', filename='processed_image.png')
 
         return response
+        # Save the processed image to disk
+        # processed_image_path = os.path.join(app.config['UPLOAD_FOLDER'], 'processed_image.jpg')
+        # cv2.imwrite(processed_image_path, res)
+
+        # Create a Flask response with the encoded image file
+        # with open(processed_image_path, 'rb') as f:
+        #     content = f.read()
+        # response = make_response(content)
+
+        # Set the response headers to indicate that it is a JPG image
+        # response.headers.set('Content-Type', 'image/jpg')
+        # response.headers.set('Content-Disposition', 'attachment', filename='processed_image.jpg')
+
+        # return response
     
-    return jsonify({'error': 'No file uploaded'}), 400
+    return jsonify({'error': 'No file uploaded'}), 200
 
 @app.route('/processed_image')
 def serve_image():

@@ -46,7 +46,6 @@
         <br>
         <br>
         <h4>processed-image</h4>
-        <img src="{{ url_for('static', filename='uploads/processed_image.jpg') }}" />
       </div>
     </main>
     <script defer>
@@ -60,9 +59,16 @@
           method: "POST",
           body: formData,
         })
-          .then((response) => {
-            console.log(response)
-          })
+        .then(response => response.blob())
+        .then(blob => {
+          // Create a new image element with the processed image
+          const img = document.createElement('img');
+          img.src = URL.createObjectURL(blob);
+          
+          // Append the image element to the DOM
+          console.log(img.src)
+          document.body.appendChild(img);
+        })
           .catch((error) => {
             console.error("Error:", error);
           });
