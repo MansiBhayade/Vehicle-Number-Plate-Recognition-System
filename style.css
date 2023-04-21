@@ -1,0 +1,31 @@
+.responsive {
+    margin-top: 1rem;
+    width: 100%;
+    height: auto;
+  }
+  
+  #loader-span {
+    display: none;
+  }
+  
+  #output {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  #output img {
+    max-width: 100%;
+    margin-top: 1rem;
+  }
+  
+  #btn-text:hover {
+    cursor: pointer;
+  }
+
+  .output{
+    max-width: 100%;
+    height: auto;
+  }
+  

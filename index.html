@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>VNPR</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js"></script>
+  </head>
+  
+
+  <body>
+    <main class="container py-5" id="main">
+      <h1 class="text-center mb-2">Vehicle Number Plate Recognition System</h1>
+      <form id="form-ele">
+        <label class="form-label fw-bold" for="customFile"
+          >Upload an image of Vehicle</label
+        >
+        <input
+          type="file"
+          class="form-control mb-4"
+          id="imagehandle"
+          name="img"
+        />
+        <button class="btn btn-primary" id="submit-btn">
+          <div id="loader-span">
+            <span
+              class="spinner-border spinner-border-sm"
+              role="status"
+              aria-hidden="true"
+            >
+            </span>
+            Extracting...
+          </div>
+          <span id="btn-text" onclick="clicksend()">Extract Number Plate</span>
+        </button>
+      </form>
+      <div id="output">
+        <br>
+        <br>
+        <br>
+        <h4>processed-image</h4>
+        <img src="{{ url_for('static', filename='uploads/processed_image.jpg') }}" />
+      </div>
+    </main>
+    <script defer>
+      const clicksend = async () => {
+        const fileInput = document.getElementById("imagehandle");
+        const file = fileInput.files[0];
+        const formData = new FormData();
+        formData.append("file", file);
+
+        await fetch("http://127.0.0.1:5000/", {
+          method: "POST",
+          body: formData,
+        })
+          .then((response) => {
+            console.log(response)
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+      };
+    </script>
+  </body>
+</html>
