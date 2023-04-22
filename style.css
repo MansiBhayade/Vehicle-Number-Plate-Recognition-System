@@ -3,7 +3,19 @@
     width: 100%;
     height: auto;
   }
-  
+
+  /* body {
+    background-image: url("frame.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+  } */
+
+  body {
+    background-color: #242424;
+    color: white;
+  }
+
   #loader-span {
     display: none;
   }
@@ -17,7 +29,7 @@
   
   #output img {
     max-width: 100%;
-    margin-top: 1rem;
+    margin-top: rem;
   }
   
   #btn-text:hover {
@@ -28,4 +40,10 @@
     max-width: 100%;
     height: auto;
   }
+
+  img {
+    display: block;
+    margin: auto;
+  }
+  
   
