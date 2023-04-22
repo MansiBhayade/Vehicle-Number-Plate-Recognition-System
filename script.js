@@ -1,5 +1,5 @@
 window.addEventListener("DOMContentLoaded", () => {
-  const fileInput = document.getElementById("file-input");
+  const fileInput = document.getElementById("imagehandle");
   const submitBtn = document.getElementById("submit-btn");
   const loaderSpan = document.getElementById("loader-span");
   const btnText = document.getElementById("btn-text");
